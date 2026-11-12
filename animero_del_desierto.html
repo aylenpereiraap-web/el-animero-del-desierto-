@@ -1,0 +1,754 @@
+<title>El Animero del Desierto</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Karla:wght@500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap">
+<style>
+  /* Diseño: una vigilia en el cementerio de Caldera — cielo de noche con
+     estrellas que titilan, velas flotando en 3D, luna y cactus como viñetas;
+     de día, el mismo desierto bajo un cielo pálido. Serif de época
+     (Cormorant Garamond) para titulares + sans cálida (Karla) para cuerpo +
+     mono (JetBrains Mono) para números. Tarjetas como lápidas/estelas
+     redondeadas con un filo de vela a la izquierda. */
+  :root{
+    --bg: #e1e6ea;
+    --bg-2: #ccd6dc;
+    --surface: #f8fafb;
+    --surface-2: #e9eef1;
+    --ink: #1c2430;
+    --ink-dim: #5c6572;
+    --line: rgba(28,36,48,0.13);
+    --shadow: rgba(28,36,48,0.22);
+
+    --accent: #c2670f;
+    --accent-dark: #7a3f08;
+    --accent-ink: #fff6ea;
+    --accent-soft: rgba(194,103,15,0.16);
+    --accent2: #2f6f8f;
+    --accent2-dark: #1c4557;
+    --accent2-ink: #eaf7fb;
+    --accent2-soft: rgba(47,111,143,0.16);
+    --good: #2f8f5b;
+    --good-dark: #175c38;
+    --good-soft: rgba(47,143,91,0.14);
+    --danger: #c0392b;
+    --danger-dark: #7c2319;
+    --danger-soft: rgba(192,57,43,0.14);
+    --neutral-dark: #c3cbce;
+    color-scheme: light;
+  }
+
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg: #0c0f1a;
+      --bg-2: #141a2b;
+      --surface: #1b2236;
+      --surface-2: #242c45;
+      --ink: #eef0f7;
+      --ink-dim: #9aa3bf;
+      --line: rgba(238,240,247,0.14);
+      --shadow: rgba(0,0,0,0.55);
+
+      --accent: #f0a04b;
+      --accent-dark: #a85f12;
+      --accent-ink: #2b1400;
+      --accent-soft: rgba(240,160,75,0.22);
+      --accent2: #7dd3e0;
+      --accent2-dark: #2d6b76;
+      --accent2-ink: #042226;
+      --accent2-soft: rgba(125,211,224,0.2);
+      --good: #7fd48c;
+      --good-dark: #2f8f4f;
+      --good-soft: rgba(127,212,140,0.18);
+      --danger: #e2695f;
+      --danger-dark: #973a30;
+      --danger-soft: rgba(226,105,95,0.2);
+      --neutral-dark: #0c0f1a;
+      color-scheme: dark;
+    }
+  }
+
+  :root[data-theme="dark"]{
+    --bg: #0c0f1a;
+    --bg-2: #141a2b;
+    --surface: #1b2236;
+    --surface-2: #242c45;
+    --ink: #eef0f7;
+    --ink-dim: #9aa3bf;
+    --line: rgba(238,240,247,0.14);
+    --shadow: rgba(0,0,0,0.55);
+
+    --accent: #f0a04b;
+    --accent-dark: #a85f12;
+    --accent-ink: #2b1400;
+    --accent-soft: rgba(240,160,75,0.22);
+    --accent2: #7dd3e0;
+    --accent2-dark: #2d6b76;
+    --accent2-ink: #042226;
+    --accent2-soft: rgba(125,211,224,0.2);
+    --good: #7fd48c;
+    --good-dark: #2f8f4f;
+    --good-soft: rgba(127,212,140,0.18);
+    --danger: #e2695f;
+    --danger-dark: #973a30;
+    --danger-soft: rgba(226,105,95,0.2);
+    --neutral-dark: #0c0f1a;
+    color-scheme: dark;
+  }
+
+  :root[data-theme="light"]{
+    --bg: #e1e6ea;
+    --bg-2: #ccd6dc;
+    --surface: #f8fafb;
+    --surface-2: #e9eef1;
+    --ink: #1c2430;
+    --ink-dim: #5c6572;
+    --line: rgba(28,36,48,0.13);
+    --shadow: rgba(28,36,48,0.22);
+
+    --accent: #c2670f;
+    --accent-dark: #7a3f08;
+    --accent-ink: #fff6ea;
+    --accent-soft: rgba(194,103,15,0.16);
+    --accent2: #2f6f8f;
+    --accent2-dark: #1c4557;
+    --accent2-ink: #eaf7fb;
+    --accent2-soft: rgba(47,111,143,0.16);
+    --good: #2f8f5b;
+    --good-dark: #175c38;
+    --good-soft: rgba(47,143,91,0.14);
+    --danger: #c0392b;
+    --danger-dark: #7c2319;
+    --danger-soft: rgba(192,57,43,0.14);
+    --neutral-dark: #c3cbce;
+    color-scheme: light;
+  }
+
+  *{ box-sizing: border-box; }
+  html, body{ height: 100%; }
+  body{
+    margin: 0;
+    background:
+      radial-gradient(900px 540px at 90% -8%, color-mix(in srgb, var(--accent2) 14%, transparent), transparent 60%),
+      radial-gradient(820px 560px at -8% 10%, color-mix(in srgb, var(--accent) 14%, transparent), transparent 62%),
+      linear-gradient(180deg, var(--bg) 0%, var(--bg-2) 100%);
+    color: var(--ink);
+    font-family: "Karla", ui-sans-serif, system-ui, sans-serif;
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+    perspective: 1800px;
+  }
+  [hidden]{ display: none !important; }
+  .num{ font-family: "JetBrains Mono", ui-monospace, monospace; font-variant-numeric: tabular-nums; }
+  button{ font-family: inherit; }
+  input{ font-family: inherit; }
+  h1,h2,h3{ font-family: "Cormorant Garamond", Georgia, serif; }
+
+  /* ---------- floating 3D decorations ---------- */
+  .floaters{ position: fixed; inset: 0; overflow: hidden; z-index: 0; pointer-events: none; }
+  .star{
+    position: absolute; border-radius: 50%;
+    background: var(--accent2);
+    box-shadow: 0 0 8px 2px var(--accent2-soft);
+    animation: twinkle 3.2s ease-in-out infinite;
+  }
+  @keyframes twinkle{ 0%,100%{ opacity: 0.25; transform: scale(0.8); } 50%{ opacity: 1; transform: scale(1.15); } }
+  .orb{ position: absolute; border-radius: 50%; animation: bob 7.5s ease-in-out infinite; transform-style: preserve-3d; }
+  .orb::after{ content:""; position:absolute; inset:0; border-radius:50%; background: radial-gradient(circle at 32% 28%, rgba(255,255,255,0.75), transparent 46%); }
+  .orb.o-a{ background: radial-gradient(circle at 35% 30%, color-mix(in srgb, var(--accent) 70%, white), var(--accent)); box-shadow: 0 18px 30px -10px var(--accent-soft); }
+  .orb.o-b{ background: radial-gradient(circle at 35% 30%, color-mix(in srgb, var(--accent2) 70%, white), var(--accent2)); box-shadow: 0 18px 30px -10px var(--accent2-soft); }
+  .o1{ width: 54px; height: 54px; top: 7%; left: 5%; animation-delay: 0s; }
+  .o2{ width: 34px; height: 34px; top: 16%; right: 9%; animation-delay: 1.1s; animation-duration: 8.5s; }
+  .emoji-float{ position: absolute; font-size: 26px; filter: drop-shadow(0 6px 10px var(--shadow)); animation: bob 8s ease-in-out infinite; opacity: 0.9; }
+  .ef1{ top: 10%; right: 22%; animation-delay: 0.8s; font-size: 24px; }
+  .ef2{ bottom: 14%; left: 9%; animation-delay: 2.4s; font-size: 24px; }
+  .ef3{ top: 42%; right: 13%; animation-delay: 1.6s; font-size: 20px; }
+  .ef4{ bottom: 30%; right: 6%; animation-delay: 0.4s; font-size: 18px; }
+  @keyframes bob{ 0%,100%{ transform: translateY(0) translateZ(0) rotateY(0deg); } 50%{ transform: translateY(-18px) translateZ(34px) rotateY(180deg); } }
+  @media (prefers-reduced-motion: reduce){ .orb, .emoji-float, .star{ animation: none; } }
+  @media (max-width: 560px){ .floaters{ opacity: 0.6; } }
+
+  @keyframes dealIn3d{ 0%{ opacity:0; transform: rotateX(-18deg) translateY(-18px) translateZ(-80px) scale(0.97); } 100%{ opacity:1; transform: rotateX(0) translateY(0) translateZ(0) scale(1); } }
+  .enter3d{ animation: dealIn3d 0.5s cubic-bezier(.2,.8,.3,1.1); transform-style: preserve-3d; }
+  @media (prefers-reduced-motion: reduce){ .enter3d{ animation: none; } }
+  @keyframes popIn{ 0%{ transform: scale(0.75); opacity: 0.3; } 60%{ transform: scale(1.08); opacity: 1; } 100%{ transform: scale(1); opacity: 1; } }
+  .pop-anim{ animation: popIn 0.4s cubic-bezier(.3,.9,.4,1.2); }
+
+  .app{
+    position: relative; z-index: 1; width: min(900px, 100%); margin: 0 auto;
+    padding: clamp(14px,2.4vw,26px) max(16px, env(safe-area-inset-left, 0px)) 32px max(16px, env(safe-area-inset-right, 0px));
+    flex: 1; display: flex; flex-direction: column; gap: clamp(12px,1.8vw,18px); min-width: 0;
+  }
+
+  .topbar{ display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+  .brand{ display: flex; align-items: baseline; gap: 10px; min-width: 0; }
+  .brand .mark{
+    font-family: "JetBrains Mono", monospace; font-weight: 700; font-size: 12.5px; letter-spacing: 0.06em;
+    color: var(--accent-ink);
+    background: linear-gradient(145deg, color-mix(in srgb, var(--accent) 85%, white), var(--accent));
+    padding: 5px 9px; border-radius: 7px; white-space: nowrap;
+    box-shadow: 0 3px 0 var(--accent-dark), 0 6px 10px -4px var(--accent-soft);
+    display: inline-block; animation: markPulse 2.6s ease-in-out infinite;
+  }
+  @keyframes markPulse{ 0%,100%{ transform: rotate(0deg) scale(1); } 50%{ transform: rotate(-3deg) scale(1.05); } }
+  .brand h1{ font-weight: 700; font-size: clamp(17px,2.8vw,23px); margin: 0; letter-spacing: -0.01em; text-wrap: balance; min-width: 0; }
+  .topbar-actions{ display: flex; gap: 8px; flex-shrink: 0; }
+  .theme-toggle, .sound-toggle{
+    border: none; background: linear-gradient(145deg, var(--surface), var(--surface-2)); color: var(--ink);
+    width: 40px; height: 40px; border-radius: 12px; font-size: 16px; cursor: pointer; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 4px 0 var(--neutral-dark), 0 7px 12px -6px var(--shadow);
+    transform: translateY(0); transition: transform 0.08s, box-shadow 0.08s;
+  }
+  .theme-toggle:active, .sound-toggle:active{ transform: translateY(3px); box-shadow: 0 1px 0 var(--neutral-dark), 0 2px 4px var(--shadow); }
+
+  .banner{
+    position: relative; overflow: hidden; background: linear-gradient(145deg, color-mix(in srgb, var(--accent2) 88%, black), var(--accent2));
+    color: var(--accent2-ink); border-radius: 12px; box-shadow: 0 4px 0 var(--accent2-dark), 0 8px 16px -8px var(--accent2-soft);
+    padding: 9px 14px; font-size: 12.5px; font-weight: 700; text-align: center; letter-spacing: 0.01em;
+  }
+
+  .card{ background: var(--surface); border-radius: 20px; padding: clamp(14px,2.2vw,22px); box-shadow: 0 3px 0 var(--line), 0 22px 40px -20px var(--shadow); min-width: 0; }
+
+  .section-head{ display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+  .section-title{ font-weight: 700; font-size: clamp(18px,2.8vw,23px); margin: 0; }
+  .section-sub{ font-size: 13px; color: var(--ink-dim); margin: 2px 0 0; }
+  .link-btn{ border: none; background: none; color: var(--accent2); font-weight: 700; font-size: 13px; cursor: pointer; padding: 4px 2px; }
+  .link-btn:hover{ text-decoration: underline; }
+
+  .menu-intro{ text-align: center; max-width: 60ch; margin: 0 auto; }
+  .menu-intro h2{ font-size: clamp(20px,3.4vw,28px); margin: 0 0 6px; text-wrap: balance; }
+  .menu-intro p{ color: var(--ink-dim); font-size: 14px; margin: 0; line-height: 1.5; }
+  .menu-grid{ display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+  @media (max-width: 560px){ .menu-grid{ grid-template-columns: 1fr; } }
+  .story-card{
+    text-align: left; border: none; cursor: pointer; font-family: inherit; color: var(--ink); background: var(--surface);
+    border-radius: 18px; padding: 18px; display: flex; flex-direction: column; gap: 8px;
+    box-shadow: 0 5px 0 var(--line), 0 20px 36px -18px var(--shadow);
+    transform: translateY(0); transition: transform 0.1s, box-shadow 0.1s; position: relative; overflow: hidden;
+  }
+  .story-card::before{ content:""; position:absolute; left:0; top:0; bottom:0; width:6px; background: linear-gradient(180deg, var(--accent), var(--accent2)); }
+  .story-card:active{ transform: translateY(4px); box-shadow: 0 1px 0 var(--line), 0 6px 14px -8px var(--shadow); }
+  .story-icon{ font-size: 30px; line-height: 1; }
+  .story-title{ font-weight: 700; font-size: 16.5px; font-family: "Cormorant Garamond", Georgia, serif; }
+  .story-sub{ font-size: 12.5px; color: var(--ink-dim); }
+  .story-best{ font-family: "JetBrains Mono", monospace; font-size: 11.5px; color: var(--accent2); font-weight: 700; }
+  .story-card.wide{ grid-column: 1 / -1; }
+
+  .chips{ display: flex; flex-wrap: wrap; gap: 9px; }
+  .chip{
+    border: none; background: var(--surface-2); color: var(--ink); padding: 10px 15px; border-radius: 999px; font-size: 13.5px; font-weight: 700;
+    cursor: pointer; font-family: inherit; white-space: nowrap;
+    box-shadow: 0 4px 0 var(--neutral-dark), 0 7px 12px -6px var(--shadow);
+    transform: translateY(0); transition: transform 0.08s, box-shadow 0.08s, background 0.15s, color 0.15s, opacity 0.15s;
+  }
+  .chip:active:not(:disabled){ transform: translateY(3px); box-shadow: 0 1px 0 var(--neutral-dark), 0 2px 4px var(--shadow); }
+
+  .start-row{ display: flex; flex-direction: column; gap: 10px; align-items: stretch; padding-top: 6px; }
+  .btn{
+    border: none; border-radius: 14px; padding: 14px 20px; font-family: inherit; font-weight: 700; font-size: 15px;
+    cursor: pointer; background: var(--surface-2); color: var(--ink);
+    box-shadow: 0 5px 0 var(--neutral-dark), 0 10px 18px -8px var(--shadow);
+    transform: translateY(0); transition: transform 0.08s, box-shadow 0.08s, opacity 0.2s;
+  }
+  .btn:active:not(:disabled){ transform: translateY(4px); box-shadow: 0 1px 0 var(--neutral-dark), 0 2px 6px var(--shadow); }
+  .btn-primary{
+    background: linear-gradient(145deg, color-mix(in srgb, var(--accent) 85%, white), var(--accent)); color: var(--accent-ink);
+    box-shadow: 0 5px 0 var(--accent-dark), 0 11px 20px -8px var(--accent-soft);
+  }
+  .btn-primary:active:not(:disabled){ box-shadow: 0 1px 0 var(--accent-dark), 0 2px 6px var(--accent-soft); }
+  .btn-primary:disabled{ opacity: 0.45; cursor: not-allowed; transform: none; }
+  .btn-ghost{ background: var(--surface-2); color: var(--ink); box-shadow: 0 4px 0 var(--neutral-dark), 0 9px 14px -8px var(--shadow); }
+  .btn-ghost:active{ box-shadow: 0 1px 0 var(--neutral-dark), 0 2px 4px var(--shadow); }
+  .btn-secondary{
+    background: linear-gradient(145deg, color-mix(in srgb, var(--accent2) 85%, white), var(--accent2)); color: var(--accent2-ink);
+    box-shadow: 0 5px 0 var(--accent2-dark), 0 11px 20px -8px var(--accent2-soft);
+  }
+  .btn-secondary:active:not(:disabled){ box-shadow: 0 1px 0 var(--accent2-dark), 0 2px 6px var(--accent2-soft); }
+  .btn-row{ display: flex; gap: 10px; flex-wrap: wrap; }
+  .btn-row .btn{ flex: 1; min-width: 150px; }
+
+  .result-hero{ text-align: center; display: flex; flex-direction: column; gap: 6px; align-items: center; }
+  .result-big{ font-family: "JetBrains Mono", monospace; font-weight: 700; font-size: clamp(40px,9vw,62px); color: var(--accent); line-height: 1; text-shadow: 0 3px 0 var(--accent-soft), 0 14px 30px var(--accent-soft); }
+  .result-sub{ color: var(--ink-dim); font-size: 14px; }
+  .result-badge{ display: inline-block; margin-top: 4px; padding: 7px 16px; border-radius: 999px; font-weight: 700; font-size: 13.5px; box-shadow: 0 2px 0 var(--line); }
+  .badge-good{ background: var(--good-soft); color: var(--good); }
+  .badge-mid{ background: var(--accent2-soft); color: var(--accent2); }
+  .badge-bad{ background: var(--danger-soft); color: var(--danger); }
+  .stat-grid{ display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 10px; width: 100%; }
+  .stat{ background: var(--surface-2); border-radius: 14px; padding: 11px 8px; text-align: center; min-width: 0; box-shadow: 0 3px 0 var(--line); }
+  .stat-val{ font-family: "JetBrains Mono", monospace; font-weight: 700; font-size: 18px; }
+  .stat-label{ font-size: 11px; color: var(--ink-dim); margin-top: 2px; }
+
+  .quiz-top{ display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; }
+  .quiz-eyebrow{ font-family: "JetBrains Mono", monospace; font-weight: 700; font-size: 11px; letter-spacing: 0.05em; text-transform: uppercase; color: var(--accent2); }
+  .dots{ display: flex; gap: 6px; flex-wrap: wrap; }
+  .dot{ width: 9px; height: 9px; border-radius: 50%; background: var(--line); }
+  .dot.active{ background: var(--accent); width: 11px; height: 11px; box-shadow: 0 0 0 4px var(--accent-soft); }
+  .dot.answered-ok{ background: var(--good); }
+  .dot.answered-bad{ background: var(--danger); }
+  .score-pill{ font-family: "JetBrains Mono", monospace; font-weight: 700; font-size: 13px; background: var(--accent2-soft); color: var(--accent2); border-radius: 999px; padding: 6px 13px; }
+  .q-text{ font-family: "Cormorant Garamond", Georgia, serif; font-weight: 700; font-size: clamp(18px,2.8vw,22px); margin: 10px 0 14px; text-wrap: balance; line-height: 1.35; }
+  .options{ display: flex; flex-direction: column; gap: 10px; }
+  .opt{
+    display: flex; align-items: flex-start; gap: 10px; text-align: left; border: none; background: var(--surface-2);
+    border-radius: 14px; padding: 12px 15px; font-family: inherit; font-size: 14.5px; color: var(--ink); cursor: pointer; min-width: 0;
+    box-shadow: 0 4px 0 var(--neutral-dark), 0 8px 14px -8px var(--shadow);
+    transform: translateY(0); transition: transform 0.08s, box-shadow 0.08s, opacity 0.2s;
+  }
+  .opt:active:not(:disabled){ transform: translateY(3px); box-shadow: 0 1px 0 var(--neutral-dark), 0 2px 4px var(--shadow); }
+  .opt-letter{ font-family: "JetBrains Mono", monospace; font-weight: 700; font-size: 12.5px; background: var(--surface); border-radius: 8px; width: 23px; height: 23px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; box-shadow: 0 2px 0 var(--line); }
+  .opt-label{ min-width: 0; }
+  .opt:disabled{ cursor: default; }
+  .opt.correct-pick{ background: linear-gradient(145deg, color-mix(in srgb, var(--good) 85%, white), var(--good)); color: #fff; box-shadow: 0 4px 0 var(--good-dark); }
+  .opt.correct-pick .opt-letter{ background: rgba(255,255,255,0.3); color: #fff; box-shadow: none; }
+  .opt.wrong-pick{ background: linear-gradient(145deg, color-mix(in srgb, var(--danger) 85%, white), var(--danger)); color: #fff; box-shadow: 0 4px 0 var(--danger-dark); }
+  .opt.wrong-pick .opt-letter{ background: rgba(255,255,255,0.3); color: #fff; box-shadow: none; }
+  .opt.reveal-correct{ box-shadow: 0 4px 0 var(--good-dark), 0 0 0 2px var(--good) inset; }
+  .opt.vf-opt{ justify-content: center; text-align: center; font-weight: 700; font-size: 15px; }
+  .explain{ margin-top: 12px; padding: 13px 15px; border-radius: 14px; background: var(--accent2-soft); font-size: 13.5px; line-height: 1.5; }
+  .explain b{ color: var(--accent2); }
+  .quiz-nav{ display: flex; justify-content: space-between; gap: 10px; margin-top: 16px; }
+
+  .pill{ display: inline-flex; align-items: center; gap: 5px; border-radius: 999px; padding: 6px 12px; font-size: 12.5px; font-weight: 700; background: var(--surface-2); white-space: nowrap; box-shadow: 0 2px 0 var(--line); }
+  .pill-accent2{ background: var(--accent2-soft); color: var(--accent2); box-shadow: none; }
+
+  .pers-list{ display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-top: 14px; }
+  @media (max-width: 560px){ .pers-list{ grid-template-columns: 1fr; } }
+  .pers-card{ background: var(--surface-2); border-radius: 16px; padding: 14px; box-shadow: 0 3px 0 var(--line); display: flex; flex-direction: column; gap: 6px; }
+  .pers-name{ font-family: "Cormorant Garamond", Georgia, serif; font-weight: 700; font-size: 18px; color: var(--accent); }
+  .pers-role{ font-family: "JetBrains Mono", monospace; font-size: 10.5px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; color: var(--accent2); }
+  .pers-desc{ font-size: 13px; line-height: 1.45; color: var(--ink); }
+
+  @media (max-width: 480px){ .stat-grid{ grid-template-columns: repeat(3, 1fr); gap: 6px; } .quiz-nav{ flex-wrap: wrap; } }
+</style>
+
+<div class="floaters" aria-hidden="true">
+  <span class="orb o-a o1"></span>
+  <span class="orb o-b o2"></span>
+  <span class="star" style="width:5px;height:5px;top:9%;left:34%;animation-delay:.3s;"></span>
+  <span class="star" style="width:4px;height:4px;top:22%;left:62%;animation-delay:1.1s;"></span>
+  <span class="star" style="width:6px;height:6px;top:30%;left:12%;animation-delay:.7s;"></span>
+  <span class="star" style="width:4px;height:4px;top:52%;left:78%;animation-delay:1.6s;"></span>
+  <span class="star" style="width:5px;height:5px;top:66%;left:30%;animation-delay:2s;"></span>
+  <span class="emoji-float ef1">🕯️</span>
+  <span class="emoji-float ef2">🌙</span>
+  <span class="emoji-float ef3">✨</span>
+  <span class="emoji-float ef4">🌵</span>
+</div>
+
+<div class="app">
+  <header class="topbar">
+    <div class="brand">
+      <span class="mark">🕯️ VIGILIA</span>
+      <h1>El Animero del Desierto</h1>
+    </div>
+    <div class="topbar-actions">
+      <button class="sound-toggle" id="soundToggle" title="Silenciar sonidos" aria-label="Silenciar sonidos">🔊</button>
+      <button class="theme-toggle" id="themeToggle" title="Cambiar tema" aria-label="Cambiar tema">◐</button>
+    </div>
+  </header>
+
+  <div class="banner">🌵 Guía de práctica · Sara Bertrand · Profesora Aylen Pereira · 1° Medio</div>
+
+  <!-- MENU -->
+  <main id="screen-menu">
+    <section class="card">
+      <div class="menu-intro">
+        <h2>Antes de la prueba…</h2>
+        <p>Repasa la novela con las mismas preguntas de tu guía: comprensión, verdadero o falso, y vocabulario. Elige por dónde empezar.</p>
+      </div>
+      <div class="menu-grid" style="margin-top:18px;">
+        <button class="story-card" id="goMC" type="button">
+          <span class="story-icon">📖</span>
+          <span class="story-title">Alternativas</span>
+          <span class="story-sub">9 preguntas de comprensión lectora</span>
+          <span class="story-best" id="bestMC" hidden></span>
+        </button>
+        <button class="story-card" id="goVF" type="button">
+          <span class="story-icon">✅</span>
+          <span class="story-title">Verdadero o Falso</span>
+          <span class="story-sub">10 afirmaciones sobre la historia</span>
+          <span class="story-best" id="bestVF" hidden></span>
+        </button>
+        <button class="story-card" id="goVocab" type="button">
+          <span class="story-icon">📚</span>
+          <span class="story-title">Vocabulario</span>
+          <span class="story-sub">9 sinónimos del libro</span>
+          <span class="story-best" id="bestVocab" hidden></span>
+        </button>
+        <button class="story-card" id="goPersonajes" type="button">
+          <span class="story-icon">🕯️</span>
+          <span class="story-title">Personajes y lugares</span>
+          <span class="story-sub">Repasa quién es quién antes de jugar</span>
+        </button>
+        <button class="story-card wide" id="goFull" type="button">
+          <span class="story-icon">🏆</span>
+          <span class="story-title">Prueba Completa — 28 puntos</span>
+          <span class="story-sub">Las 28 preguntas de la guía, en el mismo orden y puntaje</span>
+          <span class="story-best" id="bestFull" hidden></span>
+        </button>
+      </div>
+    </section>
+  </main>
+
+  <!-- QUIZ PLAY (shared engine for MC / VF / Vocab / Full) -->
+  <main id="screen-quiz-play" hidden>
+    <section class="card">
+      <div class="quiz-top">
+        <span class="quiz-eyebrow" id="quizSection">—</span>
+        <button class="link-btn" id="btnQuizExit" type="button">↩️ Salir</button>
+      </div>
+      <div class="quiz-top" style="margin-top:4px;">
+        <div class="dots" id="quizDots"></div>
+        <div class="score-pill" id="quizScore">0/0</div>
+      </div>
+      <div class="q-text" id="quizQ">—</div>
+      <div class="options" id="quizOptions"></div>
+      <div class="explain" id="quizExplain" hidden></div>
+      <div class="quiz-nav">
+        <button class="btn btn-ghost" id="btnQuizPrev">⬅️ Anterior</button>
+        <button class="btn btn-primary" id="btnQuizNext" disabled>Siguiente ➡️</button>
+      </div>
+    </section>
+  </main>
+
+  <!-- QUIZ FINAL -->
+  <main id="screen-quiz-final" hidden>
+    <section class="card">
+      <div class="result-hero">
+        <div class="result-sub" id="quizFinalLabel">Resultado</div>
+        <div class="result-big num" id="quizFinalScore">0/0</div>
+        <div class="result-sub" id="quizFinalPct">0% de aciertos</div>
+        <div class="result-badge" id="quizFinalBadge"></div>
+        <div class="stat-grid" id="quizFinalBreakdown" hidden>
+          <div class="stat"><div class="stat-val num" id="statMC">0/9</div><div class="stat-label">alternativas</div></div>
+          <div class="stat"><div class="stat-val num" id="statVF">0/10</div><div class="stat-label">V o F</div></div>
+          <div class="stat"><div class="stat-val num" id="statVocab">0/9</div><div class="stat-label">vocabulario</div></div>
+        </div>
+      </div>
+      <div class="start-row" style="margin-top:18px;">
+        <div class="btn-row">
+          <button class="btn btn-secondary" id="btnQuizReplay">🔄 Jugar de nuevo</button>
+          <button class="btn btn-ghost" id="btnQuizMenu">🏠 Menú</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- PERSONAJES -->
+  <main id="screen-personajes" hidden>
+    <section class="card">
+      <div class="section-head">
+        <h2 class="section-title">🕯️ Personajes y lugares</h2>
+        <button class="link-btn" id="backFromPersonajes" type="button">⬅️ Menú</button>
+      </div>
+      <p class="section-sub">Quién es quién en Caldera, según tu guía de lectura.</p>
+      <div class="pers-list" id="persList"></div>
+    </section>
+  </main>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  var DATA = {"mc": [{"q": "¿Quién es la protagonista y qué le ocurre a su papá al comienzo de la historia?", "options": ["Cristina; viaja a Colombia con su papá para buscar al Padre Negro.", "Ema; su papá se cae en la playa y debe volver a Santiago.", "Cristina; su papá sufre un colapso en el comedor y queda paralizado y sin habla.", "Cristina; su papá desaparece sin avisar de la casa."], "correct": 2}, {"q": "¿Por qué mandan a Cristina a Caldera y con quiénes se queda?", "options": ["Su mamá la envía de vacaciones a casa de sus padrinos, Ema y Felipe.", "Ella decide viajar sola para buscar a Ernesto.", "Su papá la envía a vivir con sus abuelos colombianos.", "El colegio la envía a un campamento de verano."], "correct": 0}, {"q": "¿Quién es Ernesto y qué le pide a Cristina cuando se conocen en la plaza?", "options": ["Es el hijo de tía Ema y le pide dinero para el transfer.", "Es el nieto de Baquero y le pide fuego.", "Es un compañero de colegio y le pide que le enseñe a bucear.", "Es sobrino del Padre Negro y le pide que lo acompañe al cementerio."], "correct": 1}, {"q": "¿Qué le promete Baquero al Padre Negro a cambio de que su madre se salve?", "options": ["Construir una gruta nueva en Caldera.", "Regresar a vivir a Galán, en Colombia.", "Dejar de beber pisco para siempre.", "Cuidar a los enfermos, a los moribundos y a las almas del cementerio."], "correct": 3}, {"q": "¿Qué ocurre la noche en que mueren Lucas y María Rojas?", "options": ["Baquero se enferma y Ernesto lo lleva al hospital.", "Lucas se recupera de la leucemia y María Rojas viaja a Colombia.", "Lucas muere acompañado por un ángel y María Rojas muere también acompañada por otro ángel.", "Un incendio destruye el cementerio de Caldera."], "correct": 2}, {"q": "¿Qué escena hace reír a Baquero por primera vez en meses?", "options": ["Una fiesta de cumpleaños en la plaza de Caldera.", "Ernesto, de pequeño, jugando bajo el agua de la manguera en el patio.", "Su hija regalándole un traje de gala.", "Cristina contándole un chiste en el cementerio."], "correct": 1}, {"q": "¿Qué le dice el abuelo a Cristina en el cementerio?", "options": ["Que su papá ya murió y debe volver a Santiago.", "Que deje de leer porque los libros no sirven.", "Que su hermano quiere que esté tranquila, que no está sola, y que se detenga, escuche y tenga fe.", "Que no vuelva a hablar con Ernesto."], "correct": 2}, {"q": "¿Qué le responde Cristina a su mamá cuando regresa y esta le dice que el papá no está bien?", "options": ["“Mamá, vamos a estar bien”.", "“No quiero volver a verte nunca más”.", "“Debemos llevarlo a otro doctor de inmediato”.", "“Me voy a vivir a Caldera con Ernesto”."], "correct": 0}, {"q": "¿Qué estudia Cristina seis años después y qué ha escrito?", "options": ["Medicina; un libro de poemas sobre el mar.", "Letras; su primera novela, “El animero del desierto”.", "Periodismo; un reportaje sobre el Padre Negro.", "Biología; un diario de buceo."], "correct": 1}], "vf": [{"s": "Cristina llora desde el primer momento en que su papá se enferma.", "a": false, "fix": "No llora durante mucho tiempo; llora por primera vez en el avión rumbo a Caldera."}, {"s": "Los capítulos de Baquero están contados en tercera persona, con tono de leyenda (“dicen que”).", "a": true, "fix": null}, {"s": "Tía Ema es hermana de la mamá de Cristina.", "a": true, "fix": null}, {"s": "Baquero llegó a Chile desde Colombia por amor a María Rojas.", "a": true, "fix": null}, {"s": "Ernesto va al aeropuerto a despedirse de Cristina.", "a": false, "fix": "No va; Cristina se va de Caldera sin verlo desde el día que caminaron por la playa."}, {"s": "El animero cuida las ánimas del cementerio y acompaña a los moribundos.", "a": true, "fix": null}, {"s": "Cristina y su mamá siguen peleando igual que al principio después del regreso a Santiago.", "a": false, "fix": "Desde que se abrazan en el aeropuerto no vuelven a pelear."}, {"s": "El papá de Cristina muere en abril, acompañado por su esposa y su hija.", "a": true, "fix": null}, {"s": "El abuelo le aconseja a Cristina que corra más rápido y no se detenga.", "a": false, "fix": "Le aconseja detenerse, escuchar y aceptar la vida con calma."}, {"s": "Al terminar la novela, Cristina estudia Medicina.", "a": false, "fix": "Estudia Letras, como le vaticinó el abuelo, y escribe su primera novela."}], "vocab": [{"word": "VATICINAR", "options": ["Olvidar", "Predecir", "Ignorar", "Recordar"], "correct": 1}, {"word": "INHÓSPITA", "options": ["Acogedora", "Agradable", "Cómoda", "Hostil"], "correct": 3}, {"word": "MALEVOLENCIA", "options": ["Maldad", "Bondad", "Nobleza", "Ternura"], "correct": 0}, {"word": "CAVILACIONES", "options": ["Distracciones", "Diversiones", "Reflexiones", "Descuidos"], "correct": 2}, {"word": "ACONGOJADO", "options": ["Contento", "Afligido", "Alegre", "Tranquilo"], "correct": 1}, {"word": "PLEGARIA", "options": ["Oración", "Blasfemia", "Maldición", "Insulto"], "correct": 0}, {"word": "IMPLACABLE", "options": ["Tolerante", "Compasivo", "Indulgente", "Inflexible"], "correct": 3}, {"word": "DESENFADO", "options": ["Timidez", "Vergüenza", "Desparpajo", "Cohibición"], "correct": 2}, {"word": "ENSIMISMADO", "options": ["Absorto", "Atento", "Despierto", "Alerta"], "correct": 0}], "personajes": [{"nombre": "Cristina", "rol": "Protagonista", "desc": "Su papá sufre un colapso y queda paralizado y sin habla; la envían a pasar el verano a Caldera con sus padrinos. Seis años después estudia Letras y escribe su primera novela: “El animero del desierto”."}, {"nombre": "Ernesto", "rol": "Nieto de Baquero", "desc": "Se conoce con Cristina en la plaza de Caldera. Su infancia jugando bajo el agua de la manguera es uno de los pocos recuerdos que hacen reír a su abuelo."}, {"nombre": "Baquero — “el animero”", "rol": "Guardián del cementerio", "desc": "Le prometió al Padre Negro cuidar a los enfermos, a los moribundos y a las almas del cementerio, a cambio de que su madre se salvara. Llegó a Chile desde Colombia por amor a María Rojas."}, {"nombre": "El Padre Negro", "rol": "A quien Baquero le hizo la promesa", "desc": "La figura ante la cual Baquero promete cuidar las ánimas del cementerio de Caldera."}, {"nombre": "Ema y Felipe", "rol": "Padrinos de Cristina", "desc": "Cristina se queda con ellos en Caldera mientras su papá está grave. Tía Ema es hermana de la mamá de Cristina."}, {"nombre": "Caldera", "rol": "El lugar", "desc": "Pueblo desértico y costero donde Cristina pasa el verano y conoce a Ernesto, a Baquero y al cementerio que este cuida."}]};
+  var MC = DATA.mc, VF = DATA.vf, VOCAB = DATA.vocab, PERSONAJES = DATA.personajes;
+
+  function el(tag, cls, text){
+    var e = document.createElement(tag);
+    if(cls) e.className = cls;
+    if(text !== undefined) e.textContent = text;
+    return e;
+  }
+
+  // ---------- sound ----------
+  var audioCtx = null;
+  var soundOn = true;
+  try{ soundOn = localStorage.getItem("anim-sound") !== "off"; }catch(e){}
+  function ensureAudioCtx(){
+    if(!audioCtx){ try{ audioCtx = new (window.AudioContext || window.webkitAudioContext)(); }catch(e){ audioCtx = null; } }
+    if(audioCtx && audioCtx.state === "suspended"){ audioCtx.resume().catch(function(){}); }
+    return audioCtx;
+  }
+  function beep(freq, dur, type, vol, delay){
+    if(!soundOn) return;
+    var ctx = ensureAudioCtx();
+    if(!ctx) return;
+    delay = delay || 0;
+    var t0 = ctx.currentTime + delay;
+    var osc = ctx.createOscillator();
+    var gain = ctx.createGain();
+    osc.type = type || "sine";
+    osc.frequency.setValueAtTime(freq, t0);
+    gain.gain.setValueAtTime(0.0001, t0);
+    gain.gain.exponentialRampToValueAtTime(Math.max(vol||0.18,0.0001), t0 + 0.012);
+    gain.gain.exponentialRampToValueAtTime(0.0001, t0 + dur);
+    osc.connect(gain); gain.connect(ctx.destination);
+    osc.start(t0); osc.stop(t0 + dur + 0.02);
+  }
+  function sndClick(){ beep(480, 0.07, "square", 0.1); }
+  function sndSelect(){ beep(600, 0.09, "triangle", 0.13); }
+  function sndCorrect(){ beep(560,0.09,"triangle",0.15); beep(840,0.15,"triangle",0.15,0.08); }
+  function sndWrong(){ beep(240,0.18,"sawtooth",0.13); beep(170,0.2,"sawtooth",0.11,0.09); }
+  function sndFanfare(){ [494,622,740,988].forEach(function(f,i){ beep(f, 0.22, "triangle", 0.16, i*0.1); }); }
+  function updateSoundIcon(){
+    var btn = document.getElementById("soundToggle");
+    btn.textContent = soundOn ? "🔊" : "🔈";
+    btn.title = soundOn ? "Silenciar sonidos" : "Activar sonidos";
+  }
+  document.getElementById("soundToggle").addEventListener("click", function(){
+    soundOn = !soundOn;
+    try{ localStorage.setItem("anim-sound", soundOn ? "on" : "off"); }catch(e){}
+    updateSoundIcon();
+    if(soundOn){ ensureAudioCtx(); sndClick(); }
+  });
+  updateSoundIcon();
+
+  // ---------- theme ----------
+  function applyTheme(mode){
+    if(mode === "dark"){ document.documentElement.setAttribute("data-theme","dark"); }
+    else if(mode === "light"){ document.documentElement.setAttribute("data-theme","light"); }
+    else { document.documentElement.removeAttribute("data-theme"); }
+  }
+  var savedTheme = null;
+  try{ savedTheme = localStorage.getItem("anim-theme"); }catch(e){}
+  applyTheme(savedTheme);
+  document.getElementById("themeToggle").addEventListener("click", function(){
+    var cur = document.documentElement.getAttribute("data-theme");
+    var next = cur === "dark" ? "light" : (cur === "light" ? null : "dark");
+    applyTheme(next);
+    try{ if(next){ localStorage.setItem("anim-theme", next); } else { localStorage.removeItem("anim-theme"); } }catch(e){}
+    sndClick();
+  });
+
+  function playEnter(elm){
+    if(!elm) return;
+    elm.classList.remove("enter3d");
+    void elm.offsetWidth;
+    elm.classList.add("enter3d");
+  }
+  function popNum(id){
+    var e = document.getElementById(id);
+    if(!e) return;
+    e.classList.remove("pop-anim");
+    void e.offsetWidth;
+    e.classList.add("pop-anim");
+  }
+
+  var ALL_SCREENS = ["screen-menu","screen-quiz-play","screen-quiz-final","screen-personajes"];
+  function showScreen(id){
+    ALL_SCREENS.forEach(function(s){ document.getElementById(s).hidden = (s !== id); });
+    playEnter(document.getElementById(id));
+    if(id === "screen-menu") renderBestBadges();
+  }
+
+  // ---------- build question items ----------
+  function buildMCItems(){
+    return MC.map(function(m){
+      var letters = ["a","b","c","d"];
+      return {
+        type: "mc", section: "I. Alternativas",
+        q: m.q, options: m.options, correctIndex: m.correct,
+        explain: "Respuesta correcta: " + letters[m.correct] + ") " + m.options[m.correct]
+      };
+    });
+  }
+  function buildVFItems(){
+    return VF.map(function(v){
+      return {
+        type: "vf", section: "II. Verdadero o Falso",
+        q: "“" + v.s + "”", options: ["Verdadero", "Falso"],
+        correctIndex: v.a ? 0 : 1,
+        explain: v.a ? "Verdadera." : ("Falsa. " + v.fix)
+      };
+    });
+  }
+  function buildVocabItems(){
+    return VOCAB.map(function(v){
+      var letters = ["a","b","c","d"];
+      return {
+        type: "mc", section: "III. Vocabulario",
+        q: "¿Cuál es un sinónimo de “" + v.word + "”?", options: v.options, correctIndex: v.correct,
+        explain: "“" + v.word + "” significa lo mismo que “" + v.options[v.correct].toLowerCase() + "” (" + letters[v.correct] + ")."
+      };
+    });
+  }
+
+  // ---------- quiz engine ----------
+  var quizState = { mode: "mc", items: [], idx: 0, answers: [], score: 0 };
+
+  function startQuizMode(mode){
+    quizState.mode = mode;
+    if(mode === "mc") quizState.items = buildMCItems();
+    else if(mode === "vf") quizState.items = buildVFItems();
+    else if(mode === "vocab") quizState.items = buildVocabItems();
+    else if(mode === "full") quizState.items = buildMCItems().concat(buildVFItems(), buildVocabItems());
+    quizState.idx = 0;
+    quizState.answers = new Array(quizState.items.length).fill(null);
+    quizState.score = 0;
+    showScreen("screen-quiz-play");
+    renderQuizQuestion();
+  }
+
+  function renderQuizDots(){
+    var wrap = document.getElementById("quizDots");
+    wrap.innerHTML = "";
+    quizState.items.forEach(function(item, i){
+      var d = el("span", "dot");
+      if(i === quizState.idx) d.classList.add("active");
+      else if(quizState.answers[i] !== null){
+        var it = quizState.items[i];
+        d.classList.add(quizState.answers[i] === it.correctIndex ? "answered-ok" : "answered-bad");
+      }
+      wrap.appendChild(d);
+    });
+  }
+
+  function renderQuizQuestion(){
+    var item = quizState.items[quizState.idx];
+    document.getElementById("quizSection").textContent = item.section;
+    document.getElementById("quizQ").textContent = item.q;
+    document.getElementById("quizScore").textContent = quizState.score + "/" + quizState.items.length;
+    renderQuizDots();
+
+    var optsWrap = document.getElementById("quizOptions");
+    optsWrap.innerHTML = "";
+    var letters = item.type === "vf" ? ["V","F"] : ["A","B","C","D"];
+    var already = quizState.answers[quizState.idx];
+
+    item.options.forEach(function(optText, i){
+      var btn = el("button", "opt" + (item.type === "vf" ? " vf-opt" : ""));
+      btn.type = "button";
+      if(item.type !== "vf"){
+        var letterSpan = el("span", "opt-letter", letters[i]);
+        btn.appendChild(letterSpan);
+      }
+      var labelSpan = el("span", "opt-label", optText);
+      btn.appendChild(labelSpan);
+      btn.addEventListener("click", function(){ answerQuiz(i); });
+      if(already !== null){
+        btn.disabled = true;
+        if(i === already && i === item.correctIndex) btn.classList.add("correct-pick");
+        else if(i === already && i !== item.correctIndex) btn.classList.add("wrong-pick");
+        else if(i === item.correctIndex) btn.classList.add("reveal-correct");
+      }
+      optsWrap.appendChild(btn);
+    });
+
+    var explainBox = document.getElementById("quizExplain");
+    if(already !== null){
+      explainBox.hidden = false;
+      explainBox.innerHTML = "<b>" + (already === item.correctIndex ? "¡Correcto! " : "No era esa. ") + "</b>" + item.explain;
+    } else {
+      explainBox.hidden = true;
+      explainBox.innerHTML = "";
+    }
+
+    document.getElementById("btnQuizPrev").disabled = quizState.idx === 0;
+    document.getElementById("btnQuizNext").disabled = already === null;
+    document.getElementById("btnQuizNext").textContent = (quizState.idx === quizState.items.length-1) ? "🏆 Ver resultado" : "Siguiente ➡️";
+  }
+
+  function answerQuiz(i){
+    if(quizState.answers[quizState.idx] !== null) return;
+    quizState.answers[quizState.idx] = i;
+    var item = quizState.items[quizState.idx];
+    if(i === item.correctIndex){ quizState.score++; sndCorrect(); } else { sndWrong(); }
+    renderQuizQuestion();
+  }
+
+  function quizNext(){
+    if(quizState.idx < quizState.items.length - 1){ quizState.idx++; renderQuizQuestion(); }
+    else { showQuizFinal(); }
+  }
+  function quizPrev(){ if(quizState.idx > 0){ quizState.idx--; renderQuizQuestion(); } }
+
+  var MODE_LABEL = { mc: "Alternativas", vf: "Verdadero o Falso", vocab: "Vocabulario", full: "Prueba Completa" };
+  var MODE_BEST_KEY = { mc: "anim-best-mc", vf: "anim-best-vf", vocab: "anim-best-vocab", full: "anim-best-full" };
+  var MODE_BEST_EL = { mc: "bestMC", vf: "bestVF", vocab: "bestVocab", full: "bestFull" };
+
+  function showQuizFinal(){
+    var total = quizState.items.length;
+    var score = quizState.score;
+    var pct = Math.round((score/total)*100);
+    document.getElementById("quizFinalLabel").textContent = MODE_LABEL[quizState.mode] + " — resultado";
+    document.getElementById("quizFinalScore").textContent = score + "/" + total;
+    popNum("quizFinalScore");
+    document.getElementById("quizFinalPct").textContent = pct + "% de aciertos";
+    var badge = document.getElementById("quizFinalBadge");
+    if(pct >= 85){ badge.textContent = "¡Excelente! Dominas la novela."; badge.className = "result-badge badge-good"; }
+    else if(pct >= 60){ badge.textContent = "Bien encaminado/a. Repasa personajes y vuelve a intentar."; badge.className = "result-badge badge-mid"; }
+    else { badge.textContent = "Repasa la novela y el resumen antes de la prueba."; badge.className = "result-badge badge-bad"; }
+
+    var breakdown = document.getElementById("quizFinalBreakdown");
+    if(quizState.mode === "full"){
+      breakdown.hidden = false;
+      var mcScore = 0, vfScore = 0, vocabScore = 0;
+      quizState.items.forEach(function(item, i){
+        var ok = quizState.answers[i] === item.correctIndex;
+        if(item.section.indexOf("I.") === 0 && ok) mcScore++;
+        else if(item.section.indexOf("II.") === 0 && ok) vfScore++;
+        else if(item.section.indexOf("III.") === 0 && ok) vocabScore++;
+      });
+      document.getElementById("statMC").textContent = mcScore + "/9";
+      document.getElementById("statVF").textContent = vfScore + "/10";
+      document.getElementById("statVocab").textContent = vocabScore + "/9";
+    } else {
+      breakdown.hidden = true;
+    }
+
+    try{
+      var key = MODE_BEST_KEY[quizState.mode];
+      var prevRaw = localStorage.getItem(key + "-pct");
+      var prevPct = prevRaw ? parseInt(prevRaw,10) : -1;
+      if(pct > prevPct){
+        localStorage.setItem(key + "-pct", String(pct));
+        localStorage.setItem(key, score + "/" + total + " (" + pct + "%)");
+      }
+    }catch(e){}
+
+    sndFanfare();
+    showScreen("screen-quiz-final");
+  }
+
+  document.getElementById("goMC").addEventListener("click", function(){ sndClick(); startQuizMode("mc"); });
+  document.getElementById("goVF").addEventListener("click", function(){ sndClick(); startQuizMode("vf"); });
+  document.getElementById("goVocab").addEventListener("click", function(){ sndClick(); startQuizMode("vocab"); });
+  document.getElementById("goFull").addEventListener("click", function(){ sndClick(); startQuizMode("full"); });
+  document.getElementById("btnQuizExit").addEventListener("click", function(){ sndClick(); showScreen("screen-menu"); });
+  document.getElementById("btnQuizNext").addEventListener("click", function(){ sndClick(); quizNext(); });
+  document.getElementById("btnQuizPrev").addEventListener("click", function(){ sndClick(); quizPrev(); });
+  document.getElementById("btnQuizReplay").addEventListener("click", function(){ sndClick(); startQuizMode(quizState.mode); });
+  document.getElementById("btnQuizMenu").addEventListener("click", function(){ sndClick(); showScreen("screen-menu"); });
+
+  // ---------- personajes ----------
+  function renderPersonajes(){
+    var listEl = document.getElementById("persList");
+    listEl.innerHTML = "";
+    PERSONAJES.forEach(function(p){
+      var card = el("div", "pers-card");
+      var n = el("div", "pers-name", p.nombre);
+      var r = el("div", "pers-role", p.rol);
+      var d = el("div", "pers-desc", p.desc);
+      card.appendChild(n); card.appendChild(r); card.appendChild(d);
+      listEl.appendChild(card);
+    });
+  }
+  document.getElementById("goPersonajes").addEventListener("click", function(){ sndClick(); renderPersonajes(); showScreen("screen-personajes"); });
+  document.getElementById("backFromPersonajes").addEventListener("click", function(){ sndClick(); showScreen("screen-menu"); });
+
+  // ---------- init ----------
+  function renderBestBadges(){
+    try{
+      ["mc","vf","vocab","full"].forEach(function(mode){
+        var b = localStorage.getItem(MODE_BEST_KEY[mode]);
+        var e = document.getElementById(MODE_BEST_EL[mode]);
+        if(b){ e.hidden = false; e.textContent = "🏆 Mejor: " + b; }
+        else { e.hidden = true; }
+      });
+    }catch(e){}
+  }
+  showScreen("screen-menu");
+})();
+</script>
